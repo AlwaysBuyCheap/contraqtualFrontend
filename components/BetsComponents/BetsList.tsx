@@ -37,7 +37,7 @@ const BetsList = (): React.ReactElement => {
     }
 
     return (
-        <Stack className="col-md-5 mx-auto" style={{marginTop: "20px"}}>
+        <Stack className="col-md-5 mx-auto" style={{marginTop: "80px", maxWidth: '90%'}}>
             <List></List>
         </Stack>
     )
