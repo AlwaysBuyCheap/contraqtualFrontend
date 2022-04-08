@@ -4,11 +4,11 @@
   box-sizing: border-box;
 }
 
-@font-face {
+  @font-face {
     font-family: 'Quicksand';
-    src: url("/textFonts/Quicksand-VariableFont_wght.ttf") format("truetype");
-    font-display: auto;
-  }
+    src: local('Helvetica'), url("/textFonts/Quicksand-VariableFont_wght.ttf") format("truetype");
+    font-display: swap;
+}
 
 a {
   color: inherit;

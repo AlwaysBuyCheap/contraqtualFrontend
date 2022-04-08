@@ -18,32 +18,8 @@ interface IAccountInfoWindowState {
 }
 
 const AccountInfoWindow = (props: IAccountInfoWindowProps): React.ReactElement => {
-    const [state, setState] = React.useState<IAccountInfoWindowState>({
-        receiverId: null,
-        oracleId: null
-    })
 
     const rootContext: IRootContextType = React.useContext(RootContext)
-
-    React.useEffect((): void => {
-        const callback = async (): Promise<void> => {
-            if (rootContext.web3ConnectionData.pollRewardsInstance && rootContext.web3ConnectionData.account) {
-                let oracleIdPromise = rootContext.web3ConnectionData.accountsStorageInstance.methods.addressToOracleId(rootContext.web3ConnectionData.account).call()
-                let receiverIdPromise = rootContext.web3ConnectionData.accountsStorageInstance.methods.addressToReceiverId(rootContext.web3ConnectionData.account).call()
-
-                let oracleId = await oracleIdPromise
-                let receiverId = await receiverIdPromise
-
-                setState(prevState => ({
-                    ...prevState,
-                    receiverId: receiverId,
-                    oracleId: oracleId
-                }))
-            }
-        }
-
-        callback()
-    }, [rootContext.web3ConnectionData])
 
     const Result = () => {
         return props.windowDisplayed ?
@@ -87,34 +63,6 @@ const AccountInfoWindow = (props: IAccountInfoWindowProps): React.ReactElement =
                         </a>
                     </div>   
 
-                    <div id={styles.accountIdTitle}>Receiver ID:</div>
-                    <div id={styles.accountId}>
-                        <ReceiverId />
-                    </div> 
-
-        
-                    <a id={styles.copyAccount} className={styles.link}>
-                        <CopyIcon />
-                        <div>Copy receiver ID</div>
-                    </a>
-
-                    <div id={styles.oracleIdTitle}>Oracle ID:</div>
-                        <div id={styles.oracleId}>
-                            <OracleId />
-                        </div>
-        
-                    <div id={styles.oraclesActions}>
-                        <a id={styles.copyOracle} className={styles.link}>
-                            <CopyIcon />
-                            <div>Copy oracle ID</div>
-                        </a>
-        
-                        <a id={styles.alterOracleDisponibility} className={`${styles.link}`}>
-                            <div id={styles.message}>Disable oracle</div>
-                            <LockIcon />
-                        </a>
-                    </div>
-
                     <DisconnectButton />
                 </div>
             </div>
@@ -130,20 +78,6 @@ const AccountInfoWindow = (props: IAccountInfoWindowProps): React.ReactElement =
             }}>Disconnect</div> 
             :
             null
-    }
-
-    const ReceiverId = (): React.ReactElement => {
-        return state.receiverId ?
-            <>#{state.receiverId}</>
-            :
-            <>Your account is not registered as a receiver yet</>  
-    }
-
-    const OracleId = (): React.ReactElement => {
-        return state.oracleId ?
-            <>#{state.oracleId}</>
-            :
-            <>Your account is not registered as an oracle yet</>
     }
 
     return Result()

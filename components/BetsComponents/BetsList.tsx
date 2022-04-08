@@ -22,7 +22,7 @@ const BetsList = (): React.ReactElement => {
         if (bets) {
             const elements = bets.map((bet) => {
                 return (
-                    <BetElement bet={bet} />
+                    <BetElement bet={bet} key={bet.id} />
                 )
             })
 

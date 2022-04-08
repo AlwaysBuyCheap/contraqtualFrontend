@@ -10,8 +10,6 @@ import { RootContext, IRootContextType } from '../GlobalComponents/screenerLayou
 import { getGasPrice } from '../../library/web3methods'
 import AccountButton from './accountButton'
 import MenuPanel from './menuPanel'
-import SettingsWindow from './settingsWindow'
-
 
 const ScreenerNavbar = (): React.ReactElement => {
     const [gasPrice, setGasPrice] = React.useState<string>('N/A')
