@@ -1,4 +1,5 @@
 {
+    "netWorkId": "0xa86a",
     "docsUrl": "https://docs.funtec.xyz/",
     "subgraphUrl": "https://api.thegraph.com/subgraphs/name/pabloturnes/thehard6",
     "infuraIPFSGateway": "https://ipfs.infura.io/ipfs",
@@ -6,3 +7,4 @@
     "ipfsPiningServiceUrl": "https://funtec.azurewebsites.net",
     "usdPriceUrl": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
 }
+

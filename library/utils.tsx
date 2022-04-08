@@ -1,10 +1,7 @@
 import BigNumber from "bignumber.js"
-import { IPoll } from "./graphqlQuerys"
 import React from "react"
-import polls from "../src/pages/polls"
-import activePolls from "../src/pages/activepolls"
+import bets from "../src/pages/bets"
 import welcome from "../src/pages/index"
-import { USDPrice } from "./data"
 
 const converGWeiToEth = (wei: string) => {
     return (new BigNumber(wei).div('1000000000')).toString()
@@ -47,76 +44,6 @@ const getCurrentTimeUnix = () => {
     return Math.floor(Date.now() / 1000)
 }
 
-enum IPollStatusTypes {
-    Open = "Open",
-    PendingOracleResult = "Pending oracle result",
-    ClaimPeriodOpen = "Claim period open",
-    PendingUltimateOracleResult = "Pending ultimate oracle result",
-    Closed = "Closed"
-}
-
-const getPollStatus = (pollData: IPoll): [IPollStatusTypes, string] => {
-    let currentTime = getCurrentTimeUnix()
-    let dateLimit = Number(pollData.dateLimit)
-    let oracleResponseTime = Number(pollData.oracleResponseTime)
-
-    if (dateLimit < currentTime) {
-        if ((dateLimit + oracleResponseTime) < currentTime) {
-            if ((dateLimit + oracleResponseTime + 24 * 60 * 60) < currentTime) {
-                if (pollData.oracleResolved) {
-                    if (pollData.disputed) {
-                        if (pollData.ultimateOracleResolved) {
-                            return [IPollStatusTypes.Closed, pollData.ultimateOracleResult.toString()]
-                        }
-
-                        else {
-                            return [IPollStatusTypes.PendingOracleResult, "N/A"]
-                        }
-                    }
-
-                    else {
-                        return [IPollStatusTypes.Closed, pollData.oracleResult.toString()]
-                    }
-                }
-
-                else {
-                    if (pollData.disputed) {
-                        if (pollData.ultimateOracleResolved) {
-                            return [IPollStatusTypes.Closed, pollData.ultimateOracleResult.toString()]
-                        }
-
-                        else {
-                            return [IPollStatusTypes.PendingOracleResult, "N/A"]
-                        }
-                    }
-
-                    else {
-                        return [IPollStatusTypes.Closed, "Not resolved"]
-                    }
-                }
-            } 
-
-            else {
-                if (pollData.oracleResolved) {
-                    return [IPollStatusTypes.ClaimPeriodOpen, pollData.oracleResult.toString()]
-                }
-
-                else {
-                    return [IPollStatusTypes.ClaimPeriodOpen, "N/A"]
-                }
-            }
-        }
-
-        else {
-            return [IPollStatusTypes.PendingOracleResult, "N/A"]
-        }
-    }
-
-    else {
-        return [IPollStatusTypes.Open, "N/A"]
-    }
-}
-
 let removeElementWhenClickOutside = (
     targetElement: HTMLElement, 
     elementToCheck: HTMLElement, 
@@ -148,27 +75,13 @@ let splitPascalCase = (str: string) => {
 
 let getComponentName = (component: React.FunctionComponent) => {
     switch (component) {
-        case polls:
-            return 'Polls'
-        case activePolls:
-            return 'Active polls'
+        case bets:
+            return 'Bets'
         case welcome:
-            return 'Futec'
+            return 'contraqtual'
         default:
             return 'N/A'
     }
-}
-
-const displayAmount = async(amountInUSD: boolean, amount: string) => {
-    let bnEther = new BigNumber(amount).div(new BigNumber('1000000000000000000'))
-
-    if(amountInUSD) {
-        let usdPrice = await USDPrice.getPrice()
-
-        return `$${bnEther.multipliedBy(usdPrice.valueOf()).toString()}`
-    }
-
-    return `${bnEther.toFixed(9).toString()} AVAX`
 }
 
 export {
@@ -178,9 +91,6 @@ export {
     getReadableDate,
     getDaysAndHoursFromUnix,
     getTwoDecimalPercent,
-    getPollStatus,
-    IPollStatusTypes,
     splitPascalCase,
-    getComponentName,
-    displayAmount
+    getComponentName
 }

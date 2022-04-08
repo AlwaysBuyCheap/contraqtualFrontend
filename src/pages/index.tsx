@@ -34,7 +34,7 @@ const Welcome = (): React.ReactElement => {
                                 <h1 id={styles.title}>Contraqtual</h1>
                                 <p id={styles.subTitle}> Predict, hedge, win</p>
                                 <div id={styles.firstViewButtons}>
-                                    <Link href={"/polls"}>
+                                    <Link href={"/bets"}>
                                         <input type={"button"} value={"Enter app"} id={styles.enterAppButton}></input>
                                     </Link>
                                 </div>
@@ -54,7 +54,7 @@ const Welcome = (): React.ReactElement => {
                         <h1 id={styles.titleMobile}>Contraqtual</h1>
                         <p id={styles.subTitleMobile}>Predict, hedge, win</p>
                         <div id={styles.firstViewButtonsMobile}>
-                            <Link href={"/polls"}>
+                            <Link href={"/bets"}>
                                 <input type={"button"} value={"Enter app"} id={styles.enterAppButton}></input>
                             </Link>             
                         </div>           

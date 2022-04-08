@@ -1,19 +1,7 @@
-import { getPollStatus } from "./utils"
 import { Contract } from "web3-eth-contract"
 import Web3 from "web3"
-
-
-
-
-
-
-
-const contributorHasRequested = async(
-    pollRewardsInstance: Contract, 
-    account: string,
-    pollId: string): Promise<boolean> => {
-    return (await pollRewardsInstance.methods.pollsUsersContributions(pollId, account).call())[1]
-}
+import { IBet } from "./types"
+import MetaData from "../public/etc/metaData.json"
 
 const getGasPrice = async(web3: Web3): Promise<string> => {
     return Math.round(Number(await web3.eth.getGasPrice()) / (10 ** 9)).toString()
@@ -31,7 +19,7 @@ const switchToAvalanche = async (provider: any) => {
     try {
         await provider.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0xa86a'}]
+            params: [{ chainId: MetaData.netWorkId}]
         })
     }
 
@@ -40,13 +28,63 @@ const switchToAvalanche = async (provider: any) => {
     }
 }
 
+const createBet = async(
+    createBetInstance: Contract,
+    address: string,
+    proposition: string,
+    genesisOdds: number,
+    gasFee: number,
+    adminFee: number,
+    genesisCost: number
+): Promise<boolean> => {
+    return await createBetInstance.methods.createyesnobet(proposition, genesisOdds, gasFee, adminFee, genesisCost).send({from: address})
+}
+
+const getBets = async(
+    createBetInstance: Contract
+): Promise<any> => {
+    let numberBets: Number = await createBetInstance.methods.index().call()
+    let bets: IBet[] = new Array<IBet>()
+
+    for (let i = 0; i < numberBets; i++) {
+        let bet = await createBetInstance.methods.bets(i).call()
+        bets.push({
+            id: bet._id, 
+            proposition:bet._proposition, 
+            yesVotes: bet._yesvotes, 
+            noVotes: bet._novotes
+        })
+    }
+
+    return bets
+}
+
+const betYes = async(
+    createBetInstance: Contract,
+    address: string,
+    index: number,
+    value: string
+): Promise<boolean> => {
+    return await createBetInstance.methods.betyes(index).send({from: address, value: Web3.utils.toWei(value, 'ether')})
+}
+
+const betNo = async(
+    createBetInstance: Contract,
+    address: string,
+    index: number,
+    value: string
+): Promise<boolean> => {
+    return await createBetInstance.methods.betno(index).send({from: address, value: Web3.utils.toWei(value, 'ether')})
+}
 
 export {
-    getPollStatus,
-    contributorHasRequested,
     switchToAvalanche,
     getGasPrice,
     getAddressBalance,
-    getAddressFromENS
+    getAddressFromENS,
+    createBet,
+    getBets,
+    betYes,
+    betNo
 }
 

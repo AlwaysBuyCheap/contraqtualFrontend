@@ -8,7 +8,6 @@ import BigNumber from 'bignumber.js'
 import AccountInfoWindow from './accountInfoWindow'
 import SelectWalletWindow from './selectWalletWindow'
 import { getAddressBalance } from './../../library/web3methods'
-import { displayAmount } from '../../library/utils'
 
 declare let window: any
 
@@ -58,7 +57,7 @@ const AccountButton = (): React.ReactElement => {
         return ConnectWalletButton()
     }
 
-    const isCurrentChainAVAX = () => rootContext.web3ConnectionData.accountsStorageInstance != null
+    const isCurrentChainAVAX = () => rootContext.web3ConnectionData.createBetInstance != null
 
     const _AccountButton = () => {
         return (

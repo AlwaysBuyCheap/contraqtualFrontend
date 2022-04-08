@@ -8,6 +8,7 @@ import ScreenMouseLock from "../GlobalComponents/screenMouseLock"
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import Web3 from "web3"
 import { useMediaQuery } from 'react-responsive'
+import MetaData from '../../public/etc/metaData.json'
 
 declare let window: any
 
@@ -109,7 +110,7 @@ const SelectWalletWindow = (props: ISelectWalletWindowProps): React.ReactElement
         try {
             await provider.enable()
             let chainId = await web3.eth.getChainId()
-            if (chainId == 43114) {
+            if (chainId == Number(MetaData.netWorkId)) {
                 rootContext.setWeb3AndAccountsInstance(provider)
             }
             else {

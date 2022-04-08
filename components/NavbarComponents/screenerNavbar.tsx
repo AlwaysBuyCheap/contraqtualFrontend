@@ -62,13 +62,10 @@ const ScreenerNavbar = (): React.ReactElement => {
                             </a>
                         </Link>
 
-                        <NavElement textContent="Polls" page="polls" />
-                        <NavElement textContent="Test Page" page="activepolls" />
+                        <NavElement textContent="Bets" page="bets" />
                     </div> 
 
                     <div id={styles.navRigthSide}>
-                        <SettingsElements />
-
                         <div id={styles.gasPanel} title='Current gas price on the network'>
                             <GasIcon />
                             <div id={styles.gasPrice}>{gasPrice}</div>
@@ -83,17 +80,6 @@ const ScreenerNavbar = (): React.ReactElement => {
                         <MenuButtonElement />
                     </div>
                 </div>
-            </div>
-        )
-    }
-
-    const SettingsElements = (): React.ReactElement => {
-        const [settingsDisplayed, setSettingsDisplayed] = React.useState<boolean>(false)
-
-        return (
-            <div id={styles.settingsBox}>
-                <SettingsIcon id={styles.settingsIcon} onClick={() => {setSettingsDisplayed(true)}} />
-                <SettingsWindow displayed={settingsDisplayed} closeSettingsCallback={() => {setSettingsDisplayed(false)}} />
             </div>
         )
     }

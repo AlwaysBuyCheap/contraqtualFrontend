@@ -20,17 +20,14 @@ interface IWeb3ConnectionData {
     provider: any | null
     web3: Web3 | null
     account: string | null
-    pollRewardsInstance: Contract | null
-    accountsStorageInstance: Contract | null
+    createBetInstance: Contract | null
 }
 
 interface IRootContextType {
     web3ConnectionData: IWeb3ConnectionData
     activePage: String | null
-    amountsInUsd: boolean
     setActivePage: (activePage: string) => void
     setWeb3AndAccountsInstance: (provider: any) => Promise<void>
-    setAmountsInUsd: (amountsInUsd: boolean) => void
 }
 
 let RootContext = React.createContext<IRootContextType>({} as IRootContextType)
@@ -38,15 +35,12 @@ let client = new ApolloClient({uri: MetaData.subgraphUrl, cache: new InMemoryCac
 
 const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactElement => {
     const [activePage, setActivePage] = React.useState<String | null>(null)
-    const [amountsInUsd, setAmountsInUsd] = React.useState<boolean>(true)
-    const [usdPrice, setUsdPrice] = React.useState<Number>(null)
 
     const initialState: IWeb3ConnectionData = {
         provider: null,
         web3: null,
         account: null,
-        pollRewardsInstance: null,
-        accountsStorageInstance: null
+        createBetInstance: null
     }
     const [web3ConnectionData, setWeb3ConnectionData] = React.useState<IWeb3ConnectionData>(initialState)
 
@@ -59,12 +53,11 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
     const setWeb3AndAccountsInstances = async (provider: any): Promise<void> => {
         let web3 = new Web3(provider)
         let accounts = await web3.eth.getAccounts()   
-        let pollRewardsInstance: Contract = null
-        let accountsStorageInstance: Contract = null
+        let createBetInstance: Contract = null
 
         if (accounts.length > 0) {
-            if (provider.chainId == '0xa86a') {
-                accountsStorageInstance = new web3.eth.Contract(contractsMetaData.accountsStorageABI as AbiItem[], contractsMetaData.accountsStorageAddress)
+            if (provider.chainId == MetaData.netWorkId) {
+                createBetInstance = new web3.eth.Contract(contractsMetaData.createBetABI as AbiItem[], contractsMetaData.createBetAddress)
             }
 
 
@@ -77,8 +70,7 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
                 provider: provider,
                 web3: web3,
                 account: accounts[0],
-                pollRewardsInstance: pollRewardsInstance as unknown as Contract,
-                accountsStorageInstance: accountsStorageInstance as unknown as Contract,
+                createBetInstance: createBetInstance as unknown as Contract,
             }))
         }
     }
@@ -101,10 +93,8 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
     const rootContext: IRootContextType = {
         web3ConnectionData: web3ConnectionData,
         activePage: activePage,
-        amountsInUsd: amountsInUsd,
         setActivePage: setActivePage,
-        setWeb3AndAccountsInstance: setWeb3AndAccountsInstances,
-        setAmountsInUsd: setAmountsInUsd
+        setWeb3AndAccountsInstance: setWeb3AndAccountsInstances
     }
 
 
