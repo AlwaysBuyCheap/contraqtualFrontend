@@ -3,7 +3,6 @@ import { IBet } from "../../library/types"
 import { getBets } from "../../library/web3methods"
 import { IRootContextType, RootContext } from "../GlobalComponents/screenerLayoutWrapper"
 import BetElement from "./BetElement"
-import { Stack } from "react-bootstrap"
 import LoadingElement from "../GlobalComponents/loadingElement"
 
 const BetsList = (): React.ReactElement => {
@@ -40,9 +39,9 @@ const BetsList = (): React.ReactElement => {
     }
 
     return (
-        <Stack className="col-md-5 mx-auto" style={{marginTop: "80px", maxWidth: '90%'}}>
-            <List></List>
-        </Stack>
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "90%", marginLeft: "5%", marginBottom: "40px"}}>
+            <List />
+        </div>
     )
 }
 

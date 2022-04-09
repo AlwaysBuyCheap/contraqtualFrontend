@@ -1,6 +1,6 @@
 {
-    "createBetAddress": "0xF5129Af3c3349Dd03775f86473E102663f41A5fb",
-    "createBetAddressAvalanche": "0xB068Bd570247Bd1FFBabbD566C4EC44345245Ad9",
+    "createBetAddressRink": "0xF5129Af3c3349Dd03775f86473E102663f41A5fb",
+    "createBetAddress": "0xB068Bd570247Bd1FFBabbD566C4EC44345245Ad9",
     "createBetTxHash": "0xc98bc1c0dfd7f513e5dcc71f73c80e19d952460fc02af3db4cf38eee63733fcb",
     "createBetABI": [
         {

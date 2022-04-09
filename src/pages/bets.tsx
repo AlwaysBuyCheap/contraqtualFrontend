@@ -18,19 +18,26 @@ const Bets = (): React.ReactElement => {
     }, [])
 
     return (
-        <>
-            <Button
-                style={{position: "absolute", marginTop: "15px", right: "25px"}}
-                variant="primary"
-                size="lg"
-                onClick={() => setCreateBetDisplayed(true)} active
-            >Create bet</Button>
+        <div style={betsStyle}>
+            <div style={{display: "flex", justifyContent: "flex-end"}}>
+                <Button
+                    style={{marginTop: "20px", marginRight: "20px"}}
+                    variant="primary"
+                    size="lg"
+                    onClick={() => setCreateBetDisplayed(true)} active
+                >Create bet</Button>
+            </div>
 
             <BetsList/>
 
             <CreateBetWindow createBetDisplayed={createBetDisplayed} setCreateBetDisplayed={setCreateBetDisplayed} />
-        </>
+        </div>
     )
+}
+
+const betsStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column"
 }
 
 export default Bets

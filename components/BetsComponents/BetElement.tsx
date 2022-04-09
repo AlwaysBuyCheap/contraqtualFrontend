@@ -3,13 +3,17 @@ import { Card, Container, Row, Col, Form, Button } from "react-bootstrap"
 import { IBet } from "../../library/types"
 import { betYes, betNo } from "../../library/web3methods"
 import { IRootContextType, RootContext } from "../GlobalComponents/screenerLayoutWrapper"
+import { useMediaQuery } from "react-responsive"
 
 interface IBetElementProps {
     bet: IBet
 }
 
+
+
 const BetElement = (props: IBetElementProps): React.ReactElement => {
     const rootContext: IRootContextType = React.useContext(RootContext)
+    const isMobile = useMediaQuery({ maxWidth: 1200})
 
     const YesInput = (): React.ReactElement => {
         const [yesVotes, setYesVotes] = React.useState<string>(null)
@@ -71,7 +75,7 @@ const BetElement = (props: IBetElementProps): React.ReactElement => {
     }
 
     return (
-        <Card key={props.bet.id} style={{marginTop: '20px'}}>
+        <Card key={props.bet.id} style={{marginTop: '20px', maxWidth: isMobile ? '100%' : '550px'}}>
             <Card.Header as="h5">{props.bet.proposition}</Card.Header>
             <Card.Body>
                 <Container fluid>
