@@ -72,9 +72,8 @@ const AccountInfoWindow = (props: IAccountInfoWindowProps): React.ReactElement =
     const DisconnectButton = () => {
         return rootContext.web3ConnectionData.provider && rootContext.web3ConnectionData.provider.isWalletConnect ?
             <div id={styles.disconnectButton} onClick={() => {
-                if (rootContext.web3ConnectionData.provider) {
-                    rootContext.web3ConnectionData.provider.disconnect()
-                }
+                rootContext.web3ConnectionData.provider.disconnect()
+                props.closeWindowListener()
             }}>Disconnect</div> 
             :
             null

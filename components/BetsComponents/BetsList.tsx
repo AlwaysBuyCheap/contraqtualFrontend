@@ -4,6 +4,7 @@ import { getBets } from "../../library/web3methods"
 import { IRootContextType, RootContext } from "../GlobalComponents/screenerLayoutWrapper"
 import BetElement from "./BetElement"
 import { Stack } from "react-bootstrap"
+import LoadingElement from "../GlobalComponents/loadingElement"
 
 const BetsList = (): React.ReactElement => {
     const rootContext: IRootContextType = React.useContext(RootContext)
@@ -19,21 +20,23 @@ const BetsList = (): React.ReactElement => {
     }, [rootContext.web3ConnectionData.createBetInstance])
 
     const List = (): React.ReactElement => {
-        if (bets) {
-            const elements = bets.map((bet) => {
-                return (
-                    <BetElement bet={bet} key={bet.id} />
-                )
-            })
-
-            return <>{elements}</>
+        if (rootContext.web3ConnectionData.createBetInstance) {
+            if (bets) {
+                const elements = bets.map((bet) => {
+                    return (
+                        <BetElement bet={bet} key={bet.id} />
+                    )
+                })
+    
+                return <>{elements}</>
+            }
+    
+            return (
+                <LoadingElement className={null}/>
+            )
         }
 
-        return (
-            <div>
-                Loading...
-            </div>
-        )
+        return <div>Connect your wallet</div>
     }
 
     return (

@@ -60,7 +60,6 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
                 createBetInstance = new web3.eth.Contract(contractsMetaData.createBetABI as AbiItem[], contractsMetaData.createBetAddress)
             }
 
-
             provider.on('chainChanged', reloadSite)
             provider.on('accountsChanged', handleAccountChanged)
 
