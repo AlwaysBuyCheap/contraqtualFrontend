@@ -31,7 +31,7 @@ interface IRootContextType {
 }
 
 let RootContext = React.createContext<IRootContextType>({} as IRootContextType)
-let client = new ApolloClient({uri: MetaData.subgraphUrl, cache: new InMemoryCache()})
+let client = new ApolloClient({ uri: MetaData.subgraphUrl, cache: new InMemoryCache() })
 
 const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactElement => {
     const [activePage, setActivePage] = React.useState<String | null>(null)
@@ -44,7 +44,7 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
     }
     const [web3ConnectionData, setWeb3ConnectionData] = React.useState<IWeb3ConnectionData>(initialState)
 
-    React.useEffect(() => {  
+    React.useEffect(() => {
         if (window.ethereum) {
             setWeb3AndAccountsInstances(window.ethereum)
         }
@@ -52,7 +52,7 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
 
     const setWeb3AndAccountsInstances = async (provider: any): Promise<void> => {
         let web3 = new Web3(provider)
-        let accounts = await web3.eth.getAccounts()   
+        let accounts = await web3.eth.getAccounts()
         let createBetInstance: Contract = null
 
         if (accounts.length > 0) {
@@ -61,9 +61,12 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
             }
 
 
-            provider.on('chainChanged', handleChainChanged)
+            provider.on('chainChanged', reloadSite)
             provider.on('accountsChanged', handleAccountChanged)
-            provider.on('disconnect', resetWeb3ConnectionData)
+
+            if (provider.isWalletConnect) {
+                provider.on('disconnect', resetWeb3ConnectionData)
+            }
 
             setWeb3ConnectionData(prevState => ({
                 ...prevState,
@@ -75,20 +78,22 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
         }
     }
 
-    const handleChainChanged = () => window.location.reload()
+    const handleAccountChanged = async (accounts: Array<string>): Promise<void> => {
+        if (accounts.length > 0) {
+            setWeb3ConnectionData(prevState => ({
+                ...prevState,
+                account: accounts[0]
+            }))
+        }
 
-    const handleAccountChanged = async (provider: any): Promise<void> => {
-        await window.web3.currentProvider.enable()
-        let web3 = new Web3(window.web3.currentProvider)
-        let accounts = await web3.eth.getAccounts()
-        
-        setWeb3ConnectionData(prevState => ({
-            ...prevState,
-            account: accounts[0]
-        }))
+        else {
+            resetWeb3ConnectionData()
+        }
     }
 
-    const resetWeb3ConnectionData = () => setWeb3ConnectionData({...initialState})
+    const reloadSite = () => window.location.reload()
+
+    const resetWeb3ConnectionData = () => setWeb3ConnectionData({ ...initialState })
 
     const rootContext: IRootContextType = {
         web3ConnectionData: web3ConnectionData,
@@ -104,15 +109,15 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
                 <Head>
                     <title>{props.title}</title>
                     <link rel="icon" type="image/x-icon" href="/images/appIcon.svg"></link>
-                </Head> 
-                
+                </Head>
+
                 <main id={styles.body}>
-                    <Navbar />    
-                    
-                    <div id={styles.main}>                    
+                    <Navbar />
+
+                    <div id={styles.main}>
                         {props.children}
-                    </div>                         
-                </main>  
+                    </div>
+                </main>
             </RootContext.Provider>
         </ApolloProvider>
     )
