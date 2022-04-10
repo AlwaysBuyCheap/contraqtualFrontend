@@ -1,5 +1,6 @@
 {
-    "netWorkId": "0xa86a",
+    "netWorkId": "0xa869",
+    "netWorkIdAv": "0xa86a",
     "netWorkIdRink": "0x4",
     "docsUrl": "https://docs.funtec.xyz/",
     "subgraphUrl": "https://api.thegraph.com/subgraphs/name/pabloturnes/thehard6",
