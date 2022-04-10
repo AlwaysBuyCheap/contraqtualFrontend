@@ -9,9 +9,12 @@ import AccountInfoWindow from './accountInfoWindow'
 import SelectWalletWindow from './selectWalletWindow'
 import { getAddressBalance } from './../../library/web3methods'
 
+interface IAccountButtonProps {
+}
+
 declare let window: any
 
-const AccountButton = (): React.ReactElement => {
+const AccountButton = (props: IAccountButtonProps): React.ReactElement => {
     const [accountInfoWindowDisplayed, setAccountInfoWindowDisplayed] = React.useState<boolean>(false)
     const [selectWalletWindowDisplayed, setSelectWalletWindowDisplayed] = React.useState<boolean>(false)
     const [balance, setBalance] = React.useState<string>("")
@@ -116,4 +119,4 @@ const AccountButton = (): React.ReactElement => {
     return Result()
 }
 
-export default React.memo(AccountButton)
+export default AccountButton

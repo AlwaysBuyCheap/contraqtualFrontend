@@ -2,7 +2,6 @@ import React from "react"
 import Link from "next/link"
 import styles from "../../styles/ComponentsStyles/GlobalComponentsStyles/screenerLayout.module.scss"
 import { RootContext, IRootContextType } from '../GlobalComponents/screenerLayoutWrapper'
-import { errorMessageWithoutClick } from "../../library/alertWindows"
 import metaData from '../../public/etc/metaData.json'
 import { useMediaQuery } from 'react-responsive'
 import AccountButton from "./accountButton"

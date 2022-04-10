@@ -104,7 +104,12 @@ const SelectWalletWindow = (props: ISelectWalletWindowProps): React.ReactElement
     }
 
     const connectUsingWalletConnect = async () => {
-        const provider = new WalletConnectProvider({infuraId: "338a91328e154a00be87b8075eb2925e"})
+        // const provider = new WalletConnectProvider({infuraId: "404740f77c7f489083dae2d410df1082"})
+        const provider = new WalletConnectProvider({
+            rpc: {
+                43114: "https://api.avax.network/ext/bc/C/rpc"
+            }
+        })
         const web3 = new Web3(provider as any)
 
         try {

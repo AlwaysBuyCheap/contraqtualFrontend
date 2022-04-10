@@ -58,6 +58,7 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
         if (accounts.length > 0) {
             if (provider.chainId == MetaData.netWorkId) {
                 createBetInstance = new web3.eth.Contract(contractsMetaData.createBetABI as AbiItem[], contractsMetaData.createBetAddress)
+                console.log(createBetInstance)
             }
 
             provider.on('chainChanged', reloadSite)

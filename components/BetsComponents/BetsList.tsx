@@ -4,6 +4,7 @@ import { getBets } from "../../library/web3methods"
 import { IRootContextType, RootContext } from "../GlobalComponents/screenerLayoutWrapper"
 import BetElement from "./BetElement"
 import LoadingElement from "../GlobalComponents/loadingElement"
+import BetLoader from "./BelLoader"
 
 const BetsList = (): React.ReactElement => {
     const rootContext: IRootContextType = React.useContext(RootContext)
@@ -26,12 +27,15 @@ const BetsList = (): React.ReactElement => {
                         <BetElement bet={bet} key={bet.id} />
                     )
                 })
-    
+
                 return <>{elements}</>
             }
-    
+
             return (
-                <LoadingElement className={null}/>
+                <>
+                    <BetLoader />
+                    <BetLoader />
+                </>
             )
         }
 
@@ -39,10 +43,20 @@ const BetsList = (): React.ReactElement => {
     }
 
     return (
-        <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "90%", marginLeft: "5%", marginBottom: "40px"}}>
+        <div style={listStyle}>
             <List />
         </div>
     )
+}
+
+const listStyle: React.CSSProperties = { 
+    display: "flex", 
+    flexDirection: "column", 
+    alignItems: "center", 
+    width: "90%", 
+    marginLeft: "5%", 
+    marginTop: "20px",
+    marginBottom: "40px" 
 }
 
 export default BetsList
