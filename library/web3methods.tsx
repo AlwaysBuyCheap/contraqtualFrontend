@@ -2,6 +2,7 @@ import { Contract } from "web3-eth-contract"
 import Web3 from "web3"
 import { IBet } from "./types"
 import MetaData from "../public/etc/metaData.json"
+import BN from "bn.js"
 
 const getGasPrice = async(web3: Web3): Promise<string> => {
     return Math.round(Number(await web3.eth.getGasPrice()) / (10 ** 9)).toString()
@@ -37,7 +38,9 @@ const createBet = async(
     adminFee: number,
     genesisCost: number
 ): Promise<boolean> => {
-    return await createBetInstance.methods.createyesnobet(proposition, genesisOdds, gasFee, adminFee, genesisCost).send({from: address})
+    let genesisCostWei = Web3.utils.toWei(new BN(genesisCost / 100))
+
+    return await createBetInstance.methods.createyesnobet(proposition, genesisOdds, gasFee, adminFee, genesisCostWei).send({from: address})
 }
 
 const getBets = async(
