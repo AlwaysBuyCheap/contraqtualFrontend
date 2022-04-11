@@ -44,53 +44,11 @@ const getCurrentTimeUnix = () => {
     return Math.floor(Date.now() / 1000)
 }
 
-let removeElementWhenClickOutside = (
-    targetElement: HTMLElement, 
-    elementToCheck: HTMLElement, 
-    actionToPerformWhenClickOutside: () => void
-): void => {
-
-    while (elementToCheck) {
-        if (targetElement == elementToCheck) {
-            document.querySelector('html').addEventListener('click', ev => {
-                if (ev.target instanceof HTMLElement) {
-                    removeElementWhenClickOutside(targetElement, ev.target, actionToPerformWhenClickOutside)
-                }
-            }, {once: true})
-
-            return 
-        }
-
-        elementToCheck = elementToCheck.parentElement
-    }
-
-    actionToPerformWhenClickOutside()
-}
-
-let splitPascalCase = (str: string) => {
-    let arraySeparatedWords = str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z])([A-Z][a-z])/g, '$1 $2').replace(/([a-z])([A-Z])/g, '$1 $2').split(' ')
-
-    return arraySeparatedWords.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-}
-
-let getComponentName = (component: React.FunctionComponent) => {
-    switch (component) {
-        case bets:
-            return 'Bets'
-        case welcome:
-            return 'contraqtual'
-        default:
-            return 'N/A'
-    }
-}
-
 export {
     converGWeiToEth,
     convertDateToUnix,
     getCurrentTimeUnix,
     getReadableDate,
     getDaysAndHoursFromUnix,
-    getTwoDecimalPercent,
-    splitPascalCase,
-    getComponentName
+    getTwoDecimalPercent
 }

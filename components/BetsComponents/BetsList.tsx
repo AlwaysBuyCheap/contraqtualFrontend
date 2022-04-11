@@ -18,6 +18,14 @@ const BetsList = (): React.ReactElement => {
         }
     }, [rootContext.web3ConnectionData.createBetInstance])
 
+    const Result = (): React.ReactElement => {
+        return (
+            <div style={listStyle}>
+                <List />
+            </div>
+        )
+    }
+
     const List = (): React.ReactElement => {
         if (rootContext.web3ConnectionData.createBetInstance) {
             if (bets) {
@@ -38,24 +46,20 @@ const BetsList = (): React.ReactElement => {
             )
         }
 
-        return <div>Connect your wallet</div>
+        return <div>Connect your wallet to see the bets</div>
     }
 
-    return (
-        <div style={listStyle}>
-            <List />
-        </div>
-    )
+    return Result()
 }
 
-const listStyle: React.CSSProperties = { 
-    display: "flex", 
-    flexDirection: "column", 
-    alignItems: "center", 
-    width: "90%", 
-    marginLeft: "5%", 
+const listStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "90%",
+    marginLeft: "5%",
     marginTop: "20px",
-    marginBottom: "40px" 
+    marginBottom: "40px"
 }
 
 export default BetsList

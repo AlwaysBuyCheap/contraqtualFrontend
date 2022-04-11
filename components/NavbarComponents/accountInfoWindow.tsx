@@ -2,7 +2,6 @@ import React from "react"
 import styles from "../../styles/ComponentsStyles/NavbarComponentsStyles/accountInfoWindow.module.scss"
 import RedirectIcon from "../../public/images/redirect.svg"
 import CopyIcon from "../../public/images/copy.svg"
-import LockIcon from "../../public/images/lockIcon.svg"
 import CrossIcon from "../../public/images/crossIcon.svg"
 import { RootContext, IRootContextType } from '../GlobalComponents/screenerLayoutWrapper'
 import ScreenMouseLock from "../GlobalComponents/screenMouseLock"

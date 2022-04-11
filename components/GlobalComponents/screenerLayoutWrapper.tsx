@@ -5,14 +5,12 @@ import Head from "next/head"
 import Navbar from "../NavbarComponents/screenerNavbar"
 import styles from "../../styles/ComponentsStyles/GlobalComponentsStyles/screenerLayout.module.scss"
 import { AbiItem } from 'web3-utils'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import MetaData from '../../public/etc/metaData.json'
 import { Contract } from "web3-eth-contract"
 
 declare let window: any
 
 interface IScreenerLayoutWrapperProps {
-    title: string
     children: React.ReactElement
 }
 
@@ -31,7 +29,6 @@ interface IRootContextType {
 }
 
 let RootContext = React.createContext<IRootContextType>({} as IRootContextType)
-let client = new ApolloClient({ uri: MetaData.subgraphUrl, cache: new InMemoryCache() })
 
 const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactElement => {
     const [activePage, setActivePage] = React.useState<String | null>(null)
@@ -92,7 +89,6 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
     }
 
     const reloadSite = () => window.location.reload()
-
     const resetWeb3ConnectionData = () => setWeb3ConnectionData({ ...initialState })
 
     const rootContext: IRootContextType = {
@@ -102,24 +98,20 @@ const ScreenerLayoutWrapper = (props: IScreenerLayoutWrapperProps): React.ReactE
         setWeb3AndAccountsInstance: setWeb3AndAccountsInstances
     }
 
-
     return (
-        <ApolloProvider client={client}>
-            <RootContext.Provider value={rootContext}>
-                <Head>
-                    <title>{props.title}</title>
-                    <link rel="icon" type="image/x-icon" href="/images/appIcon.svg"></link>
-                </Head>
+        <RootContext.Provider value={rootContext}>
+            <Head>
+                <link rel="icon" type="image/x-icon" href="/images/appIcon.svg"></link>
+            </Head>
 
-                <main id={styles.body}>
-                    <Navbar />
-
-                    <div id={styles.main}>
-                        {props.children}
-                    </div>
-                </main>
-            </RootContext.Provider>
-        </ApolloProvider>
+            <main id={styles.body}>
+                <Navbar />
+                
+                <div id={styles.main}>
+                    {props.children}
+                </div>
+            </main>
+        </RootContext.Provider>
     )
 }
 

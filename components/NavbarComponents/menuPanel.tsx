@@ -93,14 +93,9 @@ const MenuPanel = (props: IMenuPanelProps): React.ReactElement => {
     const MenuAcionsElements = () => {
         return (
             <>
-                <div 
-                    className={styles.menuElement}
+                <div className={styles.menuElement}>Sing Up as a receiver</div>
 
-                >Sing Up as a receiver</div>
-
-                <div
-                    className={styles.menuElement} 
-                >User guide</div>
+                <div className={styles.menuElement}>User guide</div>
 
                 <div 
                     className={styles.menuElement}
@@ -109,8 +104,6 @@ const MenuPanel = (props: IMenuPanelProps): React.ReactElement => {
             </>
         )
     }
-
-
 
     return Result()
 }

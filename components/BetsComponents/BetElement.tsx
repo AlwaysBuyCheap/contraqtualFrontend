@@ -15,7 +15,28 @@ const BetElement = (props: IBetElementProps): React.ReactElement => {
     const rootContext: IRootContextType = React.useContext(RootContext)
     const isMobile = useMediaQuery({ maxWidth: 1200})
 
-    const YesInput = (): React.ReactElement => {
+    const Result = (): React.ReactElement => {
+        return (
+            <Card key={props.bet.id} style={{marginTop: '20px', maxWidth: isMobile ? '100%' : '550px'}}>
+                <Card.Header as="h5">{props.bet.proposition}</Card.Header>
+                <Card.Body>
+                    <Container fluid>
+                        <Row>
+                            <Col>Yes votes:</Col>
+                            <YesInputVote />
+                        </Row>
+    
+                        <Row style={{marginTop: '20px'}}>
+                            <Col>No Votes</Col>
+                            <NoInputVote />
+                        </Row>
+                    </Container>
+                </Card.Body>
+            </Card>
+        )
+    }
+
+    const YesInputVote = (): React.ReactElement => {
         const [yesVotes, setYesVotes] = React.useState<string>(null)
 
         return (
@@ -43,7 +64,7 @@ const BetElement = (props: IBetElementProps): React.ReactElement => {
         )
     }
 
-    const NoVote = () => {
+    const NoInputVote = () => {
         const [noVotes, setNoVotes] = React.useState<string>(null)
 
         return(
@@ -74,24 +95,7 @@ const BetElement = (props: IBetElementProps): React.ReactElement => {
         )
     }
 
-    return (
-        <Card key={props.bet.id} style={{marginTop: '20px', maxWidth: isMobile ? '100%' : '550px'}}>
-            <Card.Header as="h5">{props.bet.proposition}</Card.Header>
-            <Card.Body>
-                <Container fluid>
-                    <Row>
-                        <Col>Yes votes:</Col>
-                        <YesInput />
-                    </Row>
-
-                    <Row style={{marginTop: '20px'}}>
-                        <Col>No Votes</Col>
-                        <NoVote />
-                    </Row>
-                </Container>
-            </Card.Body>
-        </Card>
-    )
+    return Result()
 }
 
 export default BetElement

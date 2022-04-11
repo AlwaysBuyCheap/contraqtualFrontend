@@ -1,11 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/dist/client/image'
 import styles from '../../styles/PagesStyles/index.module.scss'
-import metaData from '../../public/etc/metaData.json'
 import React from 'react'
-
-declare let window: any
 
 const Welcome = (): React.ReactElement => {
     const Result = () => {
@@ -17,7 +13,6 @@ const Welcome = (): React.ReactElement => {
                 </Head>
 
                 <MobileVersion />
-
                 <DesktopVersion />
             </>
         )
@@ -26,7 +21,6 @@ const Welcome = (): React.ReactElement => {
     const DesktopVersion = () => {
         return (
             <div className={`${styles.main} desktopView`}>
-
                 <div id={styles.body}>
                     <div id={styles.firstView}>
                         <div id={styles.leftView}>
