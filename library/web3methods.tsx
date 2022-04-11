@@ -38,7 +38,7 @@ const createBet = async(
     adminFee: number,
     genesisCost: number
 ): Promise<boolean> => {
-    let genesisCostWei = Web3.utils.toWei(new BN(genesisCost / 100))
+    let genesisCostWei = Web3.utils.toWei(new BN(genesisCost))
 
     return await createBetInstance.methods.createyesnobet(proposition, genesisOdds, gasFee, adminFee, genesisCostWei).send({from: address})
 }

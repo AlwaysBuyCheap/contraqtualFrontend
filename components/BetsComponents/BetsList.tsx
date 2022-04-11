@@ -3,7 +3,6 @@ import { IBet } from "../../library/types"
 import { getBets } from "../../library/web3methods"
 import { IRootContextType, RootContext } from "../GlobalComponents/screenerLayoutWrapper"
 import BetElement from "./BetElement"
-import LoadingElement from "../GlobalComponents/loadingElement"
 import BetLoader from "./BelLoader"
 
 const BetsList = (): React.ReactElement => {

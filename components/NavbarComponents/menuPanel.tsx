@@ -52,12 +52,11 @@ const MenuPanel = (props: IMenuPanelProps): React.ReactElement => {
 
                 <SeparationBar />
 
-                <div id={styles.pageElementsMobile}>
-                    <PageElement page="polls" textContent="Polls" />
-                    <PageElement page="activepolls" textContent="Active polls" />
+                {/* <div id={styles.pageElementsMobile}>
+                    <PageElement page="bets" textContent="Bets" />
                 </div>
 
-                <SeparationBar />
+                <SeparationBar /> */}
 
                 <div style={{height: '20px'}}></div>
 
